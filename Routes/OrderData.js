@@ -2,13 +2,14 @@ const express = require("express");
 const router = express.Router();
 const Order = require("../Modals/Orders");
 const nodemailer = require("nodemailer");
+require("dotenv").config(); // Load environment variables
 
 // Email transporter configuration
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: process.env.EMAIL_SERVICE, // Use service from .env
   auth: {
-    user: "mohdmustafa969@gmail.com", // Replace with your email
-    pass: "xuiw skwd jlrd krue", // Replace with your app password
+    user: process.env.EMAIL_USER, // Email user from .env
+    pass: process.env.EMAIL_PASS, // Email password from .env
   },
 });
 
@@ -25,7 +26,7 @@ async function sendOrderEmail(email, orderData) {
     .join("\n");
 
   const mailOptions = {
-    from: '"Bistro" <mohdmustafa969@gmail.com>',
+    from: `"Bistro" <${process.env.EMAIL_USER}>`,
     to: email,
     subject: "Your Order Details",
     text: `Thank you for your order!\n\nOrder Details:\n${orderSummary}\n\nWe hope you enjoy your purchase!`,

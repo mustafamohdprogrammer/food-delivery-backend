@@ -3,8 +3,9 @@ const router = express.Router();
 const User = require("../Modals/User"); // Import your User model
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+require("dotenv").config(); // Import dotenv to load environment variables
 
-const JWT_SECRET = "your_jwt_secret_key"; // Replace with a strong secret key
+const JWT_SECRET = process.env.JWT_SECRET; // Load JWT_SECRET from .env
 
 // Login route
 router.post("/loginuser", async (req, res) => {

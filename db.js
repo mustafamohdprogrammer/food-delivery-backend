@@ -1,41 +1,9 @@
-/* eslint-disable no-unused-vars */
-// const mongoose = require('mongoose');
-
-// const connectDatabase = async () => {
-//   const connection = await mongoose.connect("mongodb://127.0.0.1:27017/goFood").catch((error) => error);
-  
-//   if (connection instanceof Error) {
-//     console.error("Error connecting to the database:", connection);
-//   } else {
-//     console.log("Database connected successfully");
-    
-//     try {
-//       const fetch_data = mongoose.connection.db.collection("food_items");
-//       const data = await fetch_data.find({}).toArray(async function (err,data){
-//         const foodCategory = await mongoose.connection.db.collection("foodCategory");
-//         foodCategory.find({}).toArray(function (err,catData){
-//           if(err){
-//             console.log(err);
-//           }else{
-//            global.food_items = data;
-//            global.foodCategory = catData;
-//           }
-//         })
-//       });
-//     } catch (error) {
-//       console.error("Error fetching data from collection:", error);
-//     }
-//   }
-// };
-
-// module.exports = connectDatabase;
-
-
 const mongoose = require("mongoose");
+require("dotenv").config(); // Load environment variables
 
 const connectDatabase = async () => {
   try {
-    await mongoose.connect( "mongodb+srv://mohdmustafa969:mustafa969@cluster0.2mwbm.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"    , {
+    await mongoose.connect(process.env.MONGO_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     });
@@ -58,4 +26,3 @@ const connectDatabase = async () => {
 };
 
 module.exports = connectDatabase;
-
